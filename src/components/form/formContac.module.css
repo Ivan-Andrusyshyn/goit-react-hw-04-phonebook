@@ -1,0 +1,30 @@
+.form {
+  border: 2px solid green;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.form_lable {
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.input_form {
+  width: 50%;
+  border-radius: 10px;
+  height: 30px;
+  font-size: 14px;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.form_btn {
+  background-color: rgba(0, 128, 0, 0.623);
+  height: 30px;
+  width: 50%;
+  color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+}
