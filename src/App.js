@@ -27,18 +27,18 @@ function App() {
       name: name,
       number: number,
     };
-    const filtredItem = tryCreateOnSubm(newContact);
+    const filtredItem = checkOnSubm(newContact);
     if (filtredItem.length > 0) return;
     setContacts([newContact, ...contacts]);
   };
-  const tryCreateOnSubm = (newContact) => {
+  const checkOnSubm = (newContact) => {
     return contacts.filter(({ name }) => {
-      const arrName = name.toLowerCase();
+      const newContactName = name.toLowerCase();
       const newNameCont = newContact.name.toLowerCase();
-      if (arrName === newNameCont) {
+      if (newContactName === newNameCont) {
         alert(`${name} is already in contacts`);
+        return newNameCont;
       }
-      return arrName === newNameCont;
     });
   };
   const onDeleteTodo = (id) => {
