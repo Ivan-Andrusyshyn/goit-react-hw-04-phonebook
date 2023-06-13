@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { contactInfo } from "contacts";
 import { nanoid } from "nanoid";
-
 const counterSlice = createSlice({
   name: "counter",
   initialState: {
@@ -27,9 +26,13 @@ const counterSlice = createSlice({
     },
     handleOnChange: (state, action) => {
       state.filter = action.payload;
-      state.contacts = contactInfo.filter(({ name }) =>
-        name.toLowerCase().includes(state.filter.toLowerCase())
-      );
+      if (state.filter === "") {
+        state.contacts = contactInfo;
+      } else {
+        state.contacts = contactInfo.filter(({ name }) =>
+          name.toLowerCase().includes(state.filter.toLowerCase())
+        );
+      }
     },
   },
 });
