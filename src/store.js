@@ -15,7 +15,7 @@ import storage from "redux-persist/lib/storage";
 const rootReducer = combineReducers({ contacts: counterReducer });
 
 const persistConfig = {
-  key: "counter",
+  key: "root",
   storage: storage,
 };
 
