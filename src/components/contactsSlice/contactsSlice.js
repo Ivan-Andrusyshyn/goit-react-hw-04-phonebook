@@ -6,7 +6,7 @@ const counterSlice = createSlice({
   name: "counter",
   initialState: {
     filter: "",
-    contacts: contactInfo,
+    contacts: [...contactInfo],
   },
   reducers: {
     handleDelete: (state, action) => {
@@ -31,7 +31,7 @@ const counterSlice = createSlice({
       if (state.filter === "") {
         state.contacts = contactInfo;
       } else {
-        state.contacts = contactInfo.filter(({ name }) =>
+        state.contacts = state.contacts.filter(({ name }) =>
           name.toLowerCase().includes(state.filter.toLowerCase())
         );
       }
