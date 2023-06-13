@@ -3,7 +3,7 @@ import { contactInfo } from "contacts";
 import { nanoid } from "nanoid";
 
 const counterSlice = createSlice({
-  name: "counter",
+  name: "contact",
   initialState: {
     filter: "",
     contacts: contactInfo,
@@ -15,26 +15,23 @@ const counterSlice = createSlice({
       );
     },
     addTodoItem: (state, action) => {
-      if (state.contacts.find(({ name }) => name === action.payload.name)) {
+      const existingContact = state.contacts.find(
+        (contact) => contact.name === action.payload.name
+      );
+      if (existingContact) {
         return;
       }
+
       const newContact = {
         id: nanoid(),
         name: action.payload.name,
         number: action.payload.number,
       };
 
-      state.contacts = state.contacts.concat(newContact);
+      state.contacts.push(newContact);
     },
     handleOnChange: (state, action) => {
       state.filter = action.payload;
-      if (state.filter === "") {
-        state.contacts = contactInfo;
-      } else {
-        state.contacts = state.contacts.filter(({ name }) =>
-          name.toLowerCase().includes(state.filter.toLowerCase())
-        );
-      }
     },
   },
 });

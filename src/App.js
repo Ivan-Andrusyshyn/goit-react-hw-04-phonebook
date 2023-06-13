@@ -10,9 +10,22 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import css from "./app.module.css";
+import { useEffect, useState } from "react";
 function App() {
   const contacts = useSelector((state) => state.contacts.contacts);
   const name = useSelector((state) => state.contacts.filter);
+  const [filtered, setFiltered] = useState(contacts);
+
+  useEffect(() => {
+    const filterHandler = () => {
+      const normalFilter = name.toLowerCase();
+      const filtered = contacts.filter(({ name }) =>
+        name.toLowerCase().includes(normalFilter)
+      );
+      setFiltered(filtered);
+    };
+    filterHandler();
+  }, [name, contacts]);
 
   const dispatch = useDispatch();
   const handleInput = (e) => {
@@ -38,7 +51,7 @@ function App() {
       <ToastContainer />
       <ContactForm onSubmit={formSubmitHandler} />
       <Filter searchFilter={handleInput} nameFiltered={name} />
-      <ContactList contacts={contacts} onDeleteTodo={onDeleteTodo} />
+      <ContactList contacts={filtered} onDeleteTodo={onDeleteTodo} />
     </div>
   );
 }
