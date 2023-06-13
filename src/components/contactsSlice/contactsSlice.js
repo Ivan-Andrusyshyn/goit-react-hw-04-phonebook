@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { contactInfo } from "contacts";
 import { nanoid } from "nanoid";
+
 const counterSlice = createSlice({
   name: "counter",
   initialState: {
@@ -14,8 +15,9 @@ const counterSlice = createSlice({
       );
     },
     addTodoItem: (state, action) => {
-      if (state.contacts.find(({ name }) => name === action.payload.name))
+      if (state.contacts.find(({ name }) => name === action.payload.name)) {
         return;
+      }
       const newContact = {
         id: nanoid(),
         name: action.payload.name,

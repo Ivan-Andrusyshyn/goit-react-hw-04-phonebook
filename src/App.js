@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import css from "./app.module.css";
 function App() {
   const contacts = useSelector((state) => state.contacts.contacts);
+  const name = useSelector((state) => state.contacts.filter);
+
   const dispatch = useDispatch();
   const handleInput = (e) => {
     const value = e.currentTarget.value.trim();
@@ -35,7 +37,7 @@ function App() {
       <h1>Phonebook</h1>
       <ToastContainer />
       <ContactForm onSubmit={formSubmitHandler} />
-      <Filter searchFilter={handleInput} />
+      <Filter searchFilter={handleInput} nameFiltered={name} />
       <ContactList contacts={contacts} onDeleteTodo={onDeleteTodo} />
     </div>
   );
