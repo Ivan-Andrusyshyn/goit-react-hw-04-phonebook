@@ -1,17 +1,16 @@
 import css from "./search.module.css";
 import PropTypes from "prop-types";
 
-const Filter = ({ searchFilter, filter }) => {
+const Filter = ({ searchFilter }) => {
   return (
-    <div>
-      <h2>Find contact by name </h2>
-      <label htmlFor="">
+    <div className={css.search_container}>
+      <h2 className={css.search_title}>Find contact by name</h2>
+      <label className={css.search_label}>
         <input
-          value={filter}
           className={css.input_search}
           type="text"
           name="name"
-          onChange={(e) => searchFilter(e)}
+          onChange={searchFilter}
           required
         />
       </label>
@@ -21,5 +20,4 @@ const Filter = ({ searchFilter, filter }) => {
 export { Filter };
 Filter.propTypes = {
   searchFilter: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
 };
