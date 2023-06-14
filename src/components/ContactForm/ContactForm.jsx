@@ -1,11 +1,14 @@
 import css from "./formContac.module.css";
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { addTodoItem } from "components/contactsSlice/contactsSlice";
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-
+  const contacts = useSelector((state) => state.contacts.contacts);
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { value, name } = e.currentTarget;
     if (name === "name") {
@@ -14,13 +17,22 @@ const ContactForm = ({ onSubmit }) => {
       setNumber(value);
     }
   };
-  const handleSubmit = (e) => {
+  const formSubmitHandler = (e) => {
     e.preventDefault();
-    onSubmit({ name, number });
-    e.currentTarget.reset();
+    if (
+      contacts.some(
+        (contact) => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      toast.error("Contact already exists!");
+      return;
+    } else {
+      dispatch(addTodoItem({ name, number }));
+      e.currentTarget.reset();
+    }
   };
   return (
-    <form action="" className={css.form} onSubmit={handleSubmit}>
+    <form action="" className={css.form} onSubmit={formSubmitHandler}>
       <label htmlFor="" className={css.form_lable}>
         Name
         <input
@@ -52,6 +64,3 @@ const ContactForm = ({ onSubmit }) => {
   );
 };
 export { ContactForm };
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

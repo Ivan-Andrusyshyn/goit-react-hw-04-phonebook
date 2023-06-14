@@ -1,9 +1,31 @@
 import css from "./list.module.css";
 import PropTypes from "prop-types";
-const ContactList = ({ contacts, onDeleteTodo }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { handleDelete } from "components/contactsSlice/contactsSlice";
+import { useState, useEffect } from "react";
+const ContactList = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.contacts.contacts);
+  const onDeleteTodo = (id) => {
+    dispatch(handleDelete(id));
+  };
+  const name = useSelector((state) => state.contacts.filter);
+  const [filtered, setFiltered] = useState(contacts);
+
+  useEffect(() => {
+    const filterHandler = () => {
+      const normalFilter = name.toLowerCase();
+      const filtered = contacts.filter(({ name }) =>
+        name.toLowerCase().includes(normalFilter)
+      );
+      setFiltered(filtered);
+    };
+    filterHandler();
+  }, [name, contacts]);
+
   return (
     <ul className={css.contact_list}>
-      {contacts.map(({ id, name, number }) => {
+      {filtered.map(({ id, name, number }) => {
         return (
           <li key={id} className={css.list_item}>
             {name}: {number}
@@ -12,7 +34,7 @@ const ContactList = ({ contacts, onDeleteTodo }) => {
               onClick={() => onDeleteTodo(id)}
             >
               Delete
-            </button>{" "}
+            </button>
           </li>
         );
       })}
@@ -28,5 +50,4 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
-  onDeleteTodo: PropTypes.func.isRequired,
 };

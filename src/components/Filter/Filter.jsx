@@ -1,17 +1,22 @@
 import css from "./search.module.css";
-import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { handleOnChange } from "components/contactsSlice/contactsSlice";
+const Filter = () => {
+  const dispatch = useDispatch();
+  const handleInput = (e) => {
+    const value = e.currentTarget.value.trim();
+    dispatch(handleOnChange(value));
+  };
 
-const Filter = ({ searchFilter, nameFiltered }) => {
   return (
     <div className={css.search_container}>
       <h2 className={css.search_title}>Find contact by name</h2>
       <label className={css.search_label}>
         <input
-          value={nameFiltered}
           className={css.input_search}
           type="text"
           name="name"
-          onChange={searchFilter}
+          onChange={handleInput}
           required
         />
       </label>
@@ -19,7 +24,3 @@ const Filter = ({ searchFilter, nameFiltered }) => {
   );
 };
 export { Filter };
-Filter.propTypes = {
-  searchFilter: PropTypes.func.isRequired,
-  nameFiltered: PropTypes.string.isRequired,
-};
