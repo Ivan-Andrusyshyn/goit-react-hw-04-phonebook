@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { contactInfo } from "contacts";
 import { nanoid } from "nanoid";
 const counterSlice = createSlice({
-  name: "contactBook",
+  name: "contacts",
   initialState: {
-    contacts: [...contactInfo],
+    contacts: contactInfo,
     filter: "",
   },
   reducers: {

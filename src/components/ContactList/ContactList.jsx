@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 const ContactList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contacts.contacts);
+  const name = useSelector((state) => state.contacts.filter);
+  const [filtered, setFiltered] = useState(contacts);
   const onDeleteTodo = (id) => {
     dispatch(handleDelete(id));
   };
-  const name = useSelector((state) => state.contacts.filter);
-  const [filtered, setFiltered] = useState(contacts);
 
   useEffect(() => {
     const filterHandler = () => {
